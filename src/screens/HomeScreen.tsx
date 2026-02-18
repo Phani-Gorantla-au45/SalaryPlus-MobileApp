@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 // ✅ Import module index files instead of internal components
-import Gold from './Gold';
-import Silver from './Silver';
+import Gold from '../components/Home/Gold';
+import Silver from '../components/Home/Silver';
 
 const Home = () => {
   const [active, setActive] = useState<'gold' | 'silver'>('gold');
