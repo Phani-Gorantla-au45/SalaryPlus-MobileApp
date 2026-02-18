@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import TabIcon from '../IconComponent/TabIcon';
+
 
 import Home from '../screens/Home/index';
 import Bonds from '../screens/Bonds';
@@ -8,34 +9,34 @@ import Bonds from '../screens/Bonds';
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#000',
-        },
-        tabBarActiveTintColor: '#FFD700',
-        tabBarInactiveTintColor: '#888',
-        tabBarIcon: ({ color, size }) => {
-          let iconName: string;
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarStyle: {
+                    backgroundColor: '#000',
+                },
+                tabBarActiveTintColor: '#FFD700',
+                tabBarInactiveTintColor: '#888',
+                tabBarIcon: ({ color, size }) => {
+                    let iconName: 'home' | 'bonds';
 
-          if (route.name === 'Home') {
-            iconName = 'home';
-          } else if (route.name === 'Bonds') {
-            iconName = 'document-text';
-          } else {
-            iconName = 'ellipse';
-          }
+                    if (route.name === 'Home') {
+                        iconName = 'home';
+                    } else {
+                        iconName = 'bonds';
+                    }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Bonds" component={Bonds} />
-    </Tab.Navigator>
-  );
+                    return <TabIcon name={iconName} color={color} size={size} />;
+                },
+
+
+            })}
+        >
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Bonds" component={Bonds} />
+        </Tab.Navigator>
+    );
 };
 
 export default BottomTabs;

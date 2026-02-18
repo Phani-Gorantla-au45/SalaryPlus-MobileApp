@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import TabIcon from '../../../IconComponent/TabIcon';
+
 
 const QuickActions = () => {
   const actions = [
@@ -32,14 +33,14 @@ const QuickActions = () => {
 
       {actions.map((item, index) => (
         <TouchableOpacity key={index} style={styles.item}>
-          <Ionicons name={item.icon} size={22} color="#FFD700" />
+          <TabIcon name={item.icon} size={22} color="#FFD700" />
           
           <View style={styles.textContainer}>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.subtitle}>{item.subtitle}</Text>
           </View>
 
-          <Ionicons name="chevron-forward" size={20} color="#888" />
+          <TabIcon name="chevron-forward" size={20} color="#888" />
         </TouchableOpacity>
       ))}
     </View>
