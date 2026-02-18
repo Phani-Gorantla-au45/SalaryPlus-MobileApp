@@ -3,10 +3,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import BottomTabs from './BottomTabs';
 
-import BuyGold from '../screens/Home/Gold/BuyGold';
-import GoldSIP from '../screens/Home/Gold/GoldSIP';
-import BuySilver from '../screens/Home/Silver/BuySilver';
-import SilverSIP from '../screens/Home/Silver/SilverSIP';
+import BuyGold from '../components/Home/Gold/BuyGold';
+import GoldSIP from '../components/Home/Gold/GoldSIP';
+import BuySilver from '../components/Home/Silver/BuySilver';
+import SilverSIP from '../components/Home/Silver/SilverSIP';
+import TransactionHistory from '../QuickActions/TransactionHistory';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +22,7 @@ const StackNavigator = () => {
       <Stack.Screen name="GoldSIP" component={GoldSIP} />
       <Stack.Screen name="BuySilver" component={BuySilver} />
       <Stack.Screen name="SilverSIP" component={SilverSIP} />
+      <Stack.Screen name="TransactionHistory" component={TransactionHistory}/>
 
     </Stack.Navigator>
   );

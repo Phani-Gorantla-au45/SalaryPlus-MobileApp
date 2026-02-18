@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabIcon from '../IconComponent/TabIcon';
 
 
-import Home from '../screens/Home/index';
+import Home from '../components/Home';
 import Bonds from '../screens/Bonds';
 
 const Tab = createBottomTabNavigator();
