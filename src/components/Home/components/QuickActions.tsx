@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import TabIcon from '../../../IconComponent/TabIcon';
+import TabIcon from '../../../asserts/TabIcon';
 
 const QuickActions = () => {
   const navigation = useNavigation<any>();
