@@ -7,7 +7,7 @@ import BuyGold from '../components/Home/Gold/BuyGold';
 import GoldSIP from '../components/Home/Gold/GoldSIP';
 import BuySilver from '../components/Home/Silver/BuySilver';
 import SilverSIP from '../components/Home/Silver/SilverSIP';
-import TransactionHistory from '../QuickActions/TransactionHistory';
+import TransactionHistory from '../components/Home/QuickActions/TransactionHistory';
 
 
 const Stack = createNativeStackNavigator();
