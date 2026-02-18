@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import SilverPrice from './SilverPrice';
 import SilverComponent from './SilverComponent';
 import SilverButtons from './SilverButtons';
@@ -8,14 +8,14 @@ import QuickActions from '../components/QuickActions';
 
 const Silver = () => {
   return (
-    <View>
+   <ScrollView showsVerticalScrollIndicator={false}>
       <SilverPrice />
       <SilverComponent />
       <SilverHolding />
       <SilverButtons />
       <QuickActions />
       
-    </View>
+    </ScrollView>
   );
 };
 
