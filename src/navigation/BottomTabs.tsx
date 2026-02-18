@@ -4,7 +4,7 @@ import TabIcon from '../IconComponent/TabIcon';
 
 
 import Home from '../screens/HomeScreen';
-import Bonds from '../screens/Bonds';
+import Bonds from '../screens/BondsScreen';
 
 const Tab = createBottomTabNavigator();
 
