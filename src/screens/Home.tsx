@@ -5,8 +5,6 @@ const Home = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home Screen</Text>
-
-      <Text></Text>
     </View>
   );
 };
