@@ -4,6 +4,7 @@ import SilverPrice from './SilverPrice';
 import SilverComponent from './SilverComponent';
 import SilverButtons from './SilverButtons';
 import SilverHolding from './SilverHolding';
+import QuickActions from '../components/QuickActions';
 
 const Silver = () => {
   return (
@@ -12,6 +13,7 @@ const Silver = () => {
       <SilverComponent />
       <SilverHolding />
       <SilverButtons />
+      <QuickActions />
       
     </View>
   );
