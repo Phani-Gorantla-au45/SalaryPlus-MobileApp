@@ -36,6 +36,31 @@ const TabIcon: React.FC<Props> = ({ name, color, size }) => {
     );
   }
 
+  if (name === 'menu') {
+    return (
+      <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+        <Path
+          d="M3 6H21"
+          stroke={color}
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+        <Path
+          d="M3 12H16"
+          stroke={color}
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+        <Path
+          d="M3 18H21"
+          stroke={color}
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+      </Svg>
+    );
+  }
+
   return null;
 };
 
