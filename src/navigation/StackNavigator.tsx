@@ -12,6 +12,7 @@ import BuySilver from '../components/Home/Silver/BuySilver';
 import SilverSIP from '../components/Home/Silver/SilverSIP';
 import TransactionHistory from '../components/Home/QuickActions/TransactionHistory';
 import SideDrawer from '../components/Menu/SideDrawer';
+import RedeemOptions from '../components/Home/common_components/RedeemOptions';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +56,10 @@ const StackNavigator = () => {
         <Stack.Screen
           name="TransactionHistory"
           component={TransactionHistory}
+        />
+        <Stack.Screen
+          name="RedeemOptions"
+          component={RedeemOptions}
         />
       </Stack.Navigator>
 

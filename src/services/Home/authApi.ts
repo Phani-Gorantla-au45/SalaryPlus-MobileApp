@@ -33,3 +33,8 @@ export const registerApi = async (
     token
   );
 };
+
+// GET GOLD & SILVER RATES
+export const getRatesApi = async () => {
+  return await apiRequest('/augmont/master/rates', 'GET');
+};

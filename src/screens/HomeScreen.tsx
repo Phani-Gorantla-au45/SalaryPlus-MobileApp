@@ -1,12 +1,40 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
 
 import Gold from '../components/Home/Gold';
 import Silver from '../components/Home/Silver';
 import TabIcon from '../asserts/TabIcon';
+import { getRatesApi } from '../services/Home/authApi';
 
 const Home = ({ openDrawer }: any) => {
   const [active, setActive] = useState<'gold' | 'silver'>('gold');
+
+  const [goldPrice, setGoldPrice] = useState<number | null>(null);
+  const [silverPrice, setSilverPrice] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+// Fetch Rates.
+  const fetchRates = async () => {
+    try {
+      const response = await getRatesApi();
+
+      if (response) {
+        setGoldPrice(response.gBuy);
+        setSilverPrice(response.sBuy);
+      }
+    } catch (error) {
+      console.log('Rates Fetch Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRates();
+
+    const interval = setInterval(fetchRates, 60000); // refresh every 60 sec
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -21,6 +49,7 @@ const Home = ({ openDrawer }: any) => {
       {/* MAIN CONTENT */}
       <View style={styles.container}>
 
+        {/* TOGGLE */}
         <View style={styles.toggleContainer}>
           <TouchableOpacity
             style={[
@@ -57,7 +86,15 @@ const Home = ({ openDrawer }: any) => {
           </TouchableOpacity>
         </View>
 
-        {active === 'gold' ? <Gold /> : <Silver />}
+        {/* CONTENT */}
+        {loading ? (
+          <ActivityIndicator style={{ marginTop: 40 }} size="large" color="#FFD700" />
+        ) : active === 'gold' ? (
+          <Gold price={goldPrice} />
+        ) : (
+          <Silver price={silverPrice} />
+        )}
+
       </View>
     </View>
   );

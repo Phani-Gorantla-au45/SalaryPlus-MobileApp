@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import BuyButton from '../components/BuyButton';
-import SipButton from '../components/SipButton';
+import BuyButton from '../common_components/BuyButton';
+import SipButton from '../common_components/SipButton';
 
 const SilverButtons = () => {
   return (
