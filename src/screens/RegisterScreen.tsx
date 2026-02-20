@@ -10,30 +10,80 @@ import {
   ScrollView,
 } from 'react-native';
 import { registerApi } from '../services/Home/authApi';
+import { saveToken } from '../utils/tokenStorage';
+import { CommonActions } from '@react-navigation/native';
 
-const RegisterScreen = ({ navigation }: any) => {
+const RegisterScreen = ({ route, navigation }: any) => {
+  const tempToken = route?.params?.tempToken;
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [stateName, setStateName] = useState('');
 
+  const [errors, setErrors] = useState<any>({});
+
+  const validate = () => {
+    let newErrors: any = {};
+
+    if (!firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+
+    if (!lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
+
+    if (!email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      newErrors.email = 'Enter valid email address';
+    }
+
+    if (!stateName.trim()) {
+      newErrors.stateName = 'State is required';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleRegister = async () => {
+
+    // 🔥 Validate before API call
+    if (!validate()) return;
+
     try {
-      const res = await registerApi({
-        First_name: firstName,
-        Last_name: lastName,
-        email,
-        stateName,
-      });
+      const res = await registerApi(
+        {
+          First_name: firstName,
+          Last_name: lastName,
+          email,
+          stateName,
+        },
+        tempToken
+      );
 
       console.log('REGISTER RESPONSE:', res);
 
       if (res?.message || res?.success) {
-        Alert.alert('Success', 'Profile completed 🎉');
-        navigation.replace('MainTabs');
+
+        if (tempToken) {
+          await saveToken(tempToken);
+        }
+
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'MainTabs' }],
+          })
+        );
+
       } else {
         Alert.alert('Error', 'Registration failed');
       }
+
     } catch (error) {
       console.log('REGISTER ERROR:', error);
       Alert.alert('Error', 'Something went wrong');
@@ -49,42 +99,71 @@ const RegisterScreen = ({ navigation }: any) => {
             Let’s finish setting up your account
           </Text>
 
+          {/* FIRST NAME */}
           <TextInput
             placeholder="First Name"
             placeholderTextColor="#888"
             value={firstName}
             onChangeText={setFirstName}
-            style={styles.input}
+            style={[
+              styles.input,
+              errors.firstName && styles.errorInput,
+            ]}
           />
+          {errors.firstName && (
+            <Text style={styles.errorText}>{errors.firstName}</Text>
+          )}
 
+          {/* LAST NAME */}
           <TextInput
             placeholder="Last Name"
             placeholderTextColor="#888"
             value={lastName}
             onChangeText={setLastName}
-            style={styles.input}
+            style={[
+              styles.input,
+              errors.lastName && styles.errorInput,
+            ]}
           />
+          {errors.lastName && (
+            <Text style={styles.errorText}>{errors.lastName}</Text>
+          )}
 
+          {/* EMAIL */}
           <TextInput
             placeholder="Email Address"
             placeholderTextColor="#888"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
-            style={styles.input}
+            style={[
+              styles.input,
+              errors.email && styles.errorInput,
+            ]}
           />
+          {errors.email && (
+            <Text style={styles.errorText}>{errors.email}</Text>
+          )}
 
+          {/* STATE */}
           <TextInput
             placeholder="State"
             placeholderTextColor="#888"
             value={stateName}
             onChangeText={setStateName}
-            style={styles.input}
+            style={[
+              styles.input,
+              errors.stateName && styles.errorInput,
+            ]}
           />
+          {errors.stateName && (
+            <Text style={styles.errorText}>{errors.stateName}</Text>
+          )}
 
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
+
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -141,4 +220,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  errorText: {
+  color: 'red',
+  fontSize: 12,
+  marginBottom: 10,
+},
+
+errorInput: {
+  borderWidth: 1,
+  borderColor: 'red',
+},
 });

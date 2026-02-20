@@ -1,3 +1,4 @@
+import { getToken } from '../../utils/tokenStorage';
 import { apiRequest } from './apiClient';
 
 // SEND OTP
@@ -16,15 +17,19 @@ export const verifyOtpApi = async (phone: string, otp: string) => {
 };
 
 // COMPLETE PROFILE
-export const registerApi = async (data: {
-  First_name: string;
-  Last_name: string;
-  email: string;
-  stateName: string;
-}) => {
+export const registerApi = async (
+  data: {
+    First_name: string;
+    Last_name: string;
+    email: string;
+    stateName: string;
+  },
+  token: string
+) => {
   return await apiRequest(
     '/registration/complete-profile',
     'POST',
-    data
+    data,
+    token
   );
 };

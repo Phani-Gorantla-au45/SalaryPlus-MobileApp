@@ -5,7 +5,8 @@ const BASE_URL = 'https://salaryplus.club/api';
 export const apiRequest = async (
   endpoint: string,
   method: string,
-  body?: any
+  body?: any,
+   manualToken?: string
 ) => {
   try {
     // Get token from storage

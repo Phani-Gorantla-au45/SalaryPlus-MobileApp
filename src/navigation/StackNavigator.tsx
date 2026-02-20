@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -11,63 +11,51 @@ import GoldSIP from '../components/Home/Gold/GoldSIP';
 import BuySilver from '../components/Home/Silver/BuySilver';
 import SilverSIP from '../components/Home/Silver/SilverSIP';
 import TransactionHistory from '../components/Home/QuickActions/TransactionHistory';
-import SideDrawer from '../components/Home/Menu/SideDrawer';
+import SideDrawer from '../components/Menu/SideDrawer';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [initialRoute, setInitialRoute] = useState<string | null>(null);
   const [drawerVisible, setDrawerVisible] = useState(false);
 
-  const checkLogin = async () => {
-    const token = await AsyncStorage.getItem('USER_TOKEN');
-    setIsLoggedIn(!!token);
-  };
-
   useEffect(() => {
-    checkLogin();
+    const checkToken = async () => {
+      const token = await AsyncStorage.getItem('USER_TOKEN');
+      setInitialRoute(token ? 'MainTabs' : 'Login');
+    };
+
+    checkToken();
   }, []);
 
-  // 🔥 Listen for storage changes (important after login/logout)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      checkLogin();
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (isLoggedIn === null) {
-    return null; // can add splash screen here
+  if (!initialRoute) {
+    return null; // splash can be added
   }
 
   return (
     <>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {isLoggedIn ? (
-          <>
-            <Stack.Screen name="MainTabs">
-              {() => (
-                <BottomTabs openDrawer={() => setDrawerVisible(true)} />
-              )}
-            </Stack.Screen>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName={initialRoute}
+      >
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Otp" component={OtpScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
 
-            <Stack.Screen name="BuyGold" component={BuyGold} />
-            <Stack.Screen name="GoldSIP" component={GoldSIP} />
-            <Stack.Screen name="BuySilver" component={BuySilver} />
-            <Stack.Screen name="SilverSIP" component={SilverSIP} />
-            <Stack.Screen
-              name="TransactionHistory"
-              component={TransactionHistory}
-            />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Otp" component={OtpScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
-          </>
-        )}
+        <Stack.Screen name="MainTabs">
+          {() => (
+            <BottomTabs openDrawer={() => setDrawerVisible(true)} />
+          )}
+        </Stack.Screen>
+
+        <Stack.Screen name="BuyGold" component={BuyGold} />
+        <Stack.Screen name="GoldSIP" component={GoldSIP} />
+        <Stack.Screen name="BuySilver" component={BuySilver} />
+        <Stack.Screen name="SilverSIP" component={SilverSIP} />
+        <Stack.Screen
+          name="TransactionHistory"
+          component={TransactionHistory}
+        />
       </Stack.Navigator>
 
       <SideDrawer

@@ -1,22 +1,35 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 
 const SignOutButton = ({ onClose }: any) => {
+  const navigation = useNavigation<any>();
 
   const handleSignOut = async () => {
     try {
+      console.log('🔴 Signing out...');
+
+      // 1️⃣ Remove token
       await AsyncStorage.removeItem('USER_TOKEN');
 
+      console.log('🗑 Token removed');
+
+      // 2️⃣ Close drawer if open
       if (onClose) {
         onClose();
       }
 
-      // Do NOT navigate manually
-      // StackNavigator will automatically switch to Login
+      // 3️⃣ Reset navigation completely
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        })
+      );
 
     } catch (error) {
-      console.log('SignOut Error:', error);
+      console.log('❌ SignOut Error:', error);
     }
   };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import TabIcon from '../../../asserts/TabIcon';
+import TabIcon from '../../asserts/TabIcon';
 
 
 const AppHeader = ({ onMenuPress }: any) => {

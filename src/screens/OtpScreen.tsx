@@ -12,29 +12,47 @@ import {
 } from 'react-native';
 import { verifyOtpApi } from '../services/Home/authApi';
 import { saveToken } from '../utils/tokenStorage';
+import { CommonActions } from '@react-navigation/native';
 
 const OtpScreen = ({ route, navigation }: any) => {
     const phone = route?.params?.phone;
     const [otp, setOtp] = useState('');
     const [loading, setLoading] = useState(false);
 
+
+
     const handleVerify = async () => {
         try {
             setLoading(true);
 
             const res = await verifyOtpApi(phone, otp);
-
             console.log('VERIFY RESPONSE:', res);
 
             if (res?.token) {
+
+                // 🔥 Save token first
                 await saveToken(res.token);
 
                 if (res.isNewUser) {
-                    navigation.replace('Register');
-                } 
+                    // ✅ Reset stack to Register
+                    navigation.dispatch(
+                        CommonActions.reset({
+                            index: 0,
+                            routes: [{ name: 'Register' }],
+                        })
+                    );
+                } else {
+                    // ✅ Reset stack to MainTabs
+                    navigation.dispatch(
+                        CommonActions.reset({
+                            index: 0,
+                            routes: [{ name: 'MainTabs' }],
+                        })
+                    );
+                }
 
             } else {
-                Alert.alert('Error', res?.message || 'Invalid OTP');
+                Alert.alert('Error', 'Invalid OTP');
             }
 
         } catch (error) {
