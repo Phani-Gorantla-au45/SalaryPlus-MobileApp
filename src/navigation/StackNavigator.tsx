@@ -11,7 +11,7 @@ import GoldSIP from '../components/Home/Gold/GoldSIP';
 import BuySilver from '../components/Home/Silver/BuySilver';
 import SilverSIP from '../components/Home/Silver/SilverSIP';
 import TransactionHistory from '../components/Home/QuickActions/TransactionHistory';
-import SideDrawer from '../components/Home/common/SideDrawer';
+import SideDrawer from '../components/Home/Menu/SideDrawer';
 
 const Stack = createNativeStackNavigator();
 
