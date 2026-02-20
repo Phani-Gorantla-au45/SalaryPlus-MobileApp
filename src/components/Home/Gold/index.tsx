@@ -17,8 +17,8 @@ const Gold: React.FC<Props> = ({ price }) => {
       {/* <GoldHolding /> */}
       <LockerBalanceCard
         metal="Gold"
-        quantity={6.5}
-        value={103.78}
+        quantity={0.0}
+        value={0.0}
       />
       <GoldComponent />
       <GoldButtons />

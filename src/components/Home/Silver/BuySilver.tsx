@@ -7,24 +7,41 @@ import {
   TouchableOpacity,
   Switch,
 } from 'react-native';
+import { useRates } from '../../../context/RatesContext';
 
 const BuySilver = () => {
+  const { rates } = useRates();
+
   const [amount, setAmount] = useState('');
   const [isAmountMode, setIsAmountMode] = useState(true);
 
   const numericAmount = Number(amount);
   const isValid = numericAmount >= 10;
 
+  const silverPrice = rates?.sBuy ?? 0;
+  const blockId = rates?.blockId;
+
+  const handleBuy = () => {
+    const payload = {
+      metalType: 'silver',
+      amount: numericAmount,
+      lockPrice: silverPrice,
+      blockId: blockId,
+    };
+
+    console.log('BUY SILVER PAYLOAD:', payload);
+  };
+
   return (
     <View style={styles.container}>
 
-      {/* Live Price Card */}
       <View style={styles.priceCard}>
         <Text style={styles.priceLabel}>Live Silver Price</Text>
-        <Text style={styles.priceValue}>₹78.45/gm +3% GST</Text>
+        <Text style={styles.priceValue}>
+          ₹{silverPrice.toFixed(2)}/gm +3% GST
+        </Text>
       </View>
 
-      {/* Toggle */}
       <View style={styles.toggleContainer}>
         <Text
           style={[
@@ -52,7 +69,6 @@ const BuySilver = () => {
         </Text>
       </View>
 
-      {/* Input */}
       <View style={styles.inputContainer}>
         <TextInput
           placeholder={isAmountMode ? 'Enter amount' : 'Enter grams'}
@@ -67,20 +83,19 @@ const BuySilver = () => {
         </Text>
       </View>
 
-      {/* Validation */}
       {amount !== '' && !isValid && (
         <Text style={styles.errorText}>
           Minimum investment is ₹10
         </Text>
       )}
 
-      {/* Buy Button */}
       <TouchableOpacity
         disabled={!isValid}
         style={[
           styles.buyButton,
           !isValid && styles.disabledButton,
         ]}
+        onPress={handleBuy}
       >
         <Text style={styles.buyText}>Buy Silver</Text>
       </TouchableOpacity>

@@ -19,8 +19,8 @@ const Silver: React.FC<Props> = ({ price }) => {
       {/* <SilverHolding /> */}
       <LockerBalanceCard
         metal="Silver"
-        quantity={12.2}
-        value={250.45}
+        quantity={0}
+        value={0.0}
       />
       <SilverButtons />
       <QuickActions />

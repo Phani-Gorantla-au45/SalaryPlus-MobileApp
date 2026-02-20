@@ -5,25 +5,21 @@ import Gold from '../components/Home/Gold';
 import Silver from '../components/Home/Silver';
 import TabIcon from '../asserts/TabIcon';
 import { getRatesApi } from '../services/Home/authApi';
+import { useRates } from '../context/RatesContext';
 
 const Home = ({ openDrawer }: any) => {
+  const { rates, setRates } = useRates();
   const [active, setActive] = useState<'gold' | 'silver'>('gold');
-
-  const [goldPrice, setGoldPrice] = useState<number | null>(null);
-  const [silverPrice, setSilverPrice] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
-  
-// Fetch Rates.
+
   const fetchRates = async () => {
     try {
       const response = await getRatesApi();
-
       if (response) {
-        setGoldPrice(response.gBuy);
-        setSilverPrice(response.sBuy);
+        setRates(response);
       }
     } catch (error) {
-      console.log('Rates Fetch Error:', error);
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -31,25 +27,21 @@ const Home = ({ openDrawer }: any) => {
 
   useEffect(() => {
     fetchRates();
-
-    const interval = setInterval(fetchRates, 60000); // refresh every 60 sec
+    const interval = setInterval(fetchRates, 60000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <View style={styles.root}>
       
-      {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={openDrawer}>
           <TabIcon name="menu" size={26} color="#1E293B" />
         </TouchableOpacity>
       </View>
 
-      {/* MAIN CONTENT */}
       <View style={styles.container}>
 
-        {/* TOGGLE */}
         <View style={styles.toggleContainer}>
           <TouchableOpacity
             style={[
@@ -86,19 +78,19 @@ const Home = ({ openDrawer }: any) => {
           </TouchableOpacity>
         </View>
 
-        {/* CONTENT */}
         {loading ? (
           <ActivityIndicator style={{ marginTop: 40 }} size="large" color="#FFD700" />
         ) : active === 'gold' ? (
-          <Gold price={goldPrice} />
+          <Gold price={rates?.gBuy ?? 0} />
         ) : (
-          <Silver price={silverPrice} />
+          <Silver price={rates?.sBuy ?? 0} />
         )}
 
       </View>
     </View>
   );
 };
+
 
 export default Home;
 

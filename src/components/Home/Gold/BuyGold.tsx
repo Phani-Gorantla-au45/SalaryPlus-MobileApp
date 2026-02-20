@@ -7,24 +7,41 @@ import {
   TouchableOpacity,
   Switch,
 } from 'react-native';
+import { useRates } from '../../../context/RatesContext';
 
 const BuyGold = () => {
+  const { rates } = useRates();
+
   const [amount, setAmount] = useState('');
   const [isAmountMode, setIsAmountMode] = useState(true);
 
   const numericAmount = Number(amount);
   const isValid = numericAmount >= 10;
 
+  const goldPrice = rates?.gBuy ?? 0;
+  const blockId = rates?.blockId;
+
+  const handleBuy = () => {
+    const payload = {
+      metalType: 'gold',
+      amount: numericAmount,
+      lockPrice: goldPrice,
+      blockId: blockId,
+    };
+
+    console.log('BUY GOLD PAYLOAD:', payload);
+  };
+
   return (
     <View style={styles.container}>
 
-      {/* Live Price Card */}
       <View style={styles.priceCard}>
         <Text style={styles.priceLabel}>Live Gold Price</Text>
-        <Text style={styles.priceValue}>₹15661.15/gm +3% GST</Text>
+        <Text style={styles.priceValue}>
+          ₹{goldPrice.toFixed(2)}/gm +3% GST
+        </Text>
       </View>
 
-      {/* Toggle */}
       <View style={styles.toggleContainer}>
         <Text style={[
           styles.toggleText,
@@ -48,7 +65,6 @@ const BuyGold = () => {
         </Text>
       </View>
 
-      {/* Input */}
       <View style={styles.inputContainer}>
         <TextInput
           placeholder={isAmountMode ? "Enter amount" : "Enter grams"}
@@ -63,20 +79,19 @@ const BuyGold = () => {
         </Text>
       </View>
 
-      {/* Validation */}
       {amount !== '' && !isValid && (
         <Text style={styles.errorText}>
           Minimum investment is ₹10
         </Text>
       )}
 
-      {/* Buy Button */}
       <TouchableOpacity
         disabled={!isValid}
         style={[
           styles.buyButton,
           !isValid && styles.disabledButton
         ]}
+        onPress={handleBuy}
       >
         <Text style={styles.buyText}>Buy Gold</Text>
       </TouchableOpacity>
@@ -86,7 +101,6 @@ const BuyGold = () => {
 };
 
 export default BuyGold;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
