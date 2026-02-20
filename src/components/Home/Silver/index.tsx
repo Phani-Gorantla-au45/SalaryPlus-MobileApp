@@ -11,7 +11,7 @@ const Silver = () => {
    <ScrollView showsVerticalScrollIndicator={false}>
       <SilverPrice />
       <SilverComponent />
-      <SilverHolding />
+      {/* <SilverHolding /> */}
       <SilverButtons />
       <QuickActions />
       
