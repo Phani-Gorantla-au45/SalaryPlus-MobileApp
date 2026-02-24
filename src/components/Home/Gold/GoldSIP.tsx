@@ -10,8 +10,17 @@ import { useNavigation } from '@react-navigation/native';
 const GoldSIP = () => {
   const navigation = useNavigation<any>();
 
-  const SIPCard = (title: string, subtitle: string) => (
-    <TouchableOpacity style={styles.card}>
+  const SIPCard = (
+    title: string,
+    subtitle: string,
+    type: string
+  ) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() =>
+        navigation.navigate(type, { metal: 'Gold' })
+      }
+    >
       <Text style={styles.cardTitle}>{title}</Text>
       <Text style={styles.cardSub}>{subtitle}</Text>
     </TouchableOpacity>
@@ -19,26 +28,22 @@ const GoldSIP = () => {
 
   return (
     <View style={styles.container}>
-
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.backArrow}>←</Text>
         </TouchableOpacity>
 
         <Text style={styles.headerTitle}>Gold SIP</Text>
-
         <View style={{ width: 30 }} />
       </View>
 
       <Text style={styles.sectionTitle}>Start a SIP</Text>
 
       <View style={styles.grid}>
-        {SIPCard('Monthly SIP', 'Save to reach financial goals')}
-        {SIPCard('Daily SIP', 'Turn daily savings into returns')}
-        {SIPCard('Weekly SIP', 'Build wealth weekly')}
+        {SIPCard('Monthly SIP', 'Save to reach financial goals', 'MonthlySIP')}
+        {SIPCard('Daily SIP', 'Turn daily savings into returns', 'DailySIP')}
+        {SIPCard('Weekly SIP', 'Build wealth weekly', 'WeeklySIP')}
       </View>
-
     </View>
   );
 };

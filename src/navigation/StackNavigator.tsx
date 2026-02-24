@@ -16,6 +16,9 @@ import RedeemOptions from '../components/Home/common_components/RedeemOptions';
 import TransactionStatus from '../screens/TransactionStatus';
 import PhysicalRedeem from '../components/Home/common_components/PhysicalRedeem';
 import BankTransferRedeem from '../components/Home/common_components/BankTransferRedeem';
+import DailySIP from '../components/Home/common_components/DailySIP';
+import WeeklySIP from '../components/Home/common_components/WeeklySIP';
+import MonthlySIP from '../components/Home/common_components/MonthlySIP';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +61,9 @@ const StackNavigator = () => {
         <Stack.Screen name="PhysicalRedeem" component={PhysicalRedeem} />
         <Stack.Screen name="BankTransferRedeem" component={BankTransferRedeem} />
         <Stack.Screen name="TransactionStatus" component={TransactionStatus} options={{ headerShown: false }} />
+        <Stack.Screen name="DailySIP" component={DailySIP} />
+        <Stack.Screen name="WeeklySIP" component={WeeklySIP} />
+        <Stack.Screen name="MonthlySIP" component={MonthlySIP} />
       </Stack.Navigator>
 
       <SideDrawer visible={drawerVisible} onClose={() => setDrawerVisible(false)} />

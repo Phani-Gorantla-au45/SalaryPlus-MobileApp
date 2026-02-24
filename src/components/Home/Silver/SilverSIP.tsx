@@ -10,8 +10,17 @@ import { useNavigation } from '@react-navigation/native';
 const SilverSIP = () => {
   const navigation = useNavigation<any>();
 
-  const SIPCard = (title: string, subtitle: string) => (
-    <TouchableOpacity style={styles.card}>
+  const SIPCard = (
+    title: string,
+    subtitle: string,
+    screenName: string
+  ) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() =>
+        navigation.navigate(screenName, { metal: 'Silver' })
+      }
+    >
       <Text style={styles.cardTitle}>{title}</Text>
       <Text style={styles.cardSub}>{subtitle}</Text>
     </TouchableOpacity>
@@ -34,9 +43,21 @@ const SilverSIP = () => {
       <Text style={styles.sectionTitle}>Start a SIP</Text>
 
       <View style={styles.grid}>
-        {SIPCard('Monthly SIP', 'Save to reach financial goals')}
-        {SIPCard('Daily SIP', 'Turn daily savings into returns')}
-        {SIPCard('Weekly SIP', 'Build wealth weekly')}
+        {SIPCard(
+          'Monthly SIP',
+          'Save to reach financial goals',
+          'MonthlySIP'
+        )}
+        {SIPCard(
+          'Daily SIP',
+          'Turn daily savings into returns',
+          'DailySIP'
+        )}
+        {SIPCard(
+          'Weekly SIP',
+          'Build wealth weekly',
+          'WeeklySIP'
+        )}
       </View>
 
     </View>
