@@ -13,6 +13,7 @@ import SilverSIP from '../components/Home/Silver/SilverSIP';
 import TransactionHistory from '../components/Home/QuickActions/TransactionHistory';
 import SideDrawer from '../components/Menu/SideDrawer';
 import RedeemOptions from '../components/Home/common_components/RedeemOptions';
+import TransactionStatus from '../screens/TransactionStatus';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,20 +54,21 @@ const StackNavigator = () => {
         <Stack.Screen name="GoldSIP" component={GoldSIP} />
         <Stack.Screen name="BuySilver" component={BuySilver} />
         <Stack.Screen name="SilverSIP" component={SilverSIP} />
+        <Stack.Screen name="TransactionHistory" component={TransactionHistory}/>
+        <Stack.Screen name="RedeemOptions"component={RedeemOptions}/>
         <Stack.Screen
-          name="TransactionHistory"
-          component={TransactionHistory}
-        />
-        <Stack.Screen
-          name="RedeemOptions"
-          component={RedeemOptions}
-        />
+        name="TransactionStatus"
+        component={TransactionStatus}
+        options={{ headerShown: false }}
+      />
       </Stack.Navigator>
 
       <SideDrawer
         visible={drawerVisible}
         onClose={() => setDrawerVisible(false)}
       />
+
+      
     </>
   );
 };

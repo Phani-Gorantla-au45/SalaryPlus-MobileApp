@@ -38,3 +38,44 @@ export const registerApi = async (
 export const getRatesApi = async () => {
   return await apiRequest('/augmont/master/rates', 'GET');
 };
+
+// CREATE GOLD BUY INTENT
+export const createGoldIntentApi = async (payload: {
+  amount?: number;
+  quantity?: number;
+  lockPrice: number;
+  blockId: string;
+}) => {
+  return await apiRequest('/juspay/metal/intent', 'POST', {
+    metalType: 'gold',
+    ...payload,
+  });
+};
+
+// CREATE SILVER BUY INTENT
+export const createSilverIntentApi = async (payload: {
+  amount?: number;
+  quantity?: number;
+  lockPrice: number;
+  blockId: string;
+}) => {
+  return await apiRequest('/juspay/metal/intent', 'POST', {
+    metalType: 'silver',
+    ...payload,
+  });
+};
+
+// CHECK JUSPAY TRANSACTION STATUS
+export const checkTransactionStatusApi = async (payload: {
+  merchantRequestId: string;
+}) => {
+  return await apiRequest('/juspay/transaction-status', 'POST', {
+    merchantRequestId: payload.merchantRequestId,
+    transactionType: 'MERCHANT_CREDITED_VIA_PAY', // hardcoded for now
+  });
+};
+
+// CREATE GOLD ACCOUNT (Auto)
+export const createGoldAccountApi = async () => {
+  return await apiRequest('/gold/create', 'POST');
+};

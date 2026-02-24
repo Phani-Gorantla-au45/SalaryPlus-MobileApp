@@ -8,29 +8,69 @@ import {
   Switch,
 } from 'react-native';
 import { useRates } from '../../../context/RatesContext';
+import { createGoldIntentApi } from '../../../services/Home/authApi';
+import { Linking, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const BuyGold = () => {
+  const navigation = useNavigation<any>();
+
   const { rates } = useRates();
 
   const [amount, setAmount] = useState('');
   const [isAmountMode, setIsAmountMode] = useState(true);
 
   const numericAmount = Number(amount);
-  const isValid = numericAmount >= 10;
+  const isValid = numericAmount >= 0.1;
 
   const goldPrice = rates?.gBuy ?? 0;
   const blockId = rates?.blockId;
 
-  const handleBuy = () => {
-    const payload = {
+  const handleBuy = async () => {
+    if (!rates) return;
+
+    let payload: any = {
       metalType: 'gold',
-      amount: numericAmount,
-      lockPrice: goldPrice,
-      blockId: blockId,
+      lockPrice: rates.gBuy,
+      blockId: rates.blockId,
     };
 
-    console.log('BUY GOLD PAYLOAD:', payload);
+    if (isAmountMode) {
+      payload.amount = Number(amount);
+    } else {
+      payload.quantity = Number(amount);
+    }
+
+    try {
+      const response = await createGoldIntentApi(payload);
+      console.log('Intent Response:', response);
+
+      if (response?.success && response?.data?.upiDeeplink) {
+        const supported = await Linking.canOpenURL(response.data.upiDeeplink);
+
+        if (supported) {
+          await Linking.openURL(response.data.upiDeeplink);
+          // Navigate to status screen after slight delay
+          setTimeout(() => {
+            navigation.navigate('TransactionStatus', {
+              merchantRequestId: response.data.merchantTransactionId,
+            });
+          }, 3000);
+        } else {
+          Alert.alert("Error", "No UPI app found on this device");
+        }
+      }
+
+    } catch (error) {
+      console.log('Intent Error:', error);
+    }
   };
+  console.log("SENDING:", {
+    metalType: 'gold',
+    amount: Number(amount),
+    lockPrice: rates?.gBuy,
+    blockId: rates?.blockId,
+  });
 
   return (
     <View style={styles.container}>
@@ -115,7 +155,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     borderWidth: 1,
     borderColor: '#FFD700',
-    marginTop:50
+    marginTop: 50
   },
 
   priceLabel: {

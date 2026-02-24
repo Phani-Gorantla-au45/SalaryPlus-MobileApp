@@ -9,9 +9,10 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import { registerApi } from '../services/Home/authApi';
+import { registerApi, createGoldAccountApi } from '../services/Home/authApi';
 import { saveToken } from '../utils/tokenStorage';
 import { CommonActions } from '@react-navigation/native';
+import { ToastAndroid } from 'react-native';
 
 const RegisterScreen = ({ route, navigation }: any) => {
   const tempToken = route?.params?.tempToken;
@@ -23,6 +24,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
 
   const [errors, setErrors] = useState<any>({});
 
+  // 🔎 Form validation
   const validate = () => {
     let newErrors: any = {};
 
@@ -55,6 +57,8 @@ const RegisterScreen = ({ route, navigation }: any) => {
     if (!validate()) return;
 
     try {
+      console.log('🚀 Calling register API...');
+
       const res = await registerApi(
         {
           First_name: firstName,
@@ -65,14 +69,33 @@ const RegisterScreen = ({ route, navigation }: any) => {
         tempToken
       );
 
-      console.log('REGISTER RESPONSE:', res);
+      console.log('✅ REGISTER RESPONSE:', res);
 
       if (res?.message || res?.success) {
 
+        // 🔐 Save JWT token permanently
         if (tempToken) {
           await saveToken(tempToken);
+          console.log('🔐 Token saved successfully');
         }
 
+        // 🪙 AUTO CREATE GOLD ACCOUNT
+        try {
+          console.log('🪙 Creating Gold Account...');
+          const goldRes = await createGoldAccountApi();
+          console.log('🪙 GOLD ACCOUNT RESPONSE:', goldRes);
+
+          // ✅ Show Toast
+          ToastAndroid.show(
+            '🪙 Gold account activated successfully',
+            ToastAndroid.SHORT
+          );
+
+        } catch (goldError) {
+          console.log('⚠️ Gold account creation failed:', goldError);
+        }
+
+        // 🔄 Reset navigation to MainTabs
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
@@ -85,7 +108,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
       }
 
     } catch (error) {
-      console.log('REGISTER ERROR:', error);
+      console.log('❌ REGISTER ERROR:', error);
       Alert.alert('Error', 'Something went wrong');
     }
   };
@@ -221,13 +244,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   errorText: {
-  color: 'red',
-  fontSize: 12,
-  marginBottom: 10,
-},
-
-errorInput: {
-  borderWidth: 1,
-  borderColor: 'red',
-},
+    color: 'red',
+    fontSize: 12,
+    marginBottom: 10,
+  },
+  errorInput: {
+    borderWidth: 1,
+    borderColor: 'red',
+  },
 });
