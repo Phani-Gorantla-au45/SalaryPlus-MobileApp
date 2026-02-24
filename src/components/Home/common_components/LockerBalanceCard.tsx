@@ -20,7 +20,7 @@ const LockerBalanceCard: React.FC<Props> = ({
   return (
     <View style={styles.card}>
       <Text style={styles.title}>
-        Your {metal} Locker Balance
+        Your {metal} Holdings
       </Text>
 
       <View style={styles.valueBox}>
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#0F172A',
     borderRadius: 20,
+    alignItems:"center"
   },
 
   title: {

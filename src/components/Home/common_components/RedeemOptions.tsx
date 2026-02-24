@@ -8,7 +8,7 @@ import {
 import TabIcon from '../../../asserts/TabIcon';
 
 const RedeemOptions = ({ route, navigation }: any) => {
-  const { metal } = route.params; // Gold or Silver
+  const { metal } = route.params;
 
   return (
     <View style={styles.container}>
@@ -26,7 +26,12 @@ const RedeemOptions = ({ route, navigation }: any) => {
       </Text>
 
       {/* Physical Option */}
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() =>
+          navigation.navigate('PhysicalRedeem', { metal })
+        }
+      >
         <View>
           <Text style={styles.cardTitle}>
             Physical {metal}
@@ -41,7 +46,12 @@ const RedeemOptions = ({ route, navigation }: any) => {
       </TouchableOpacity>
 
       {/* Bank Transfer */}
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() =>
+          navigation.navigate('BankTransferRedeem', { metal })
+        }
+      >
         <View>
           <Text style={styles.cardTitle}>Bank Transfer</Text>
           <Text style={styles.cardDesc}>
@@ -62,25 +72,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#000814',
     padding: 20,
   },
-
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
   },
-
   headerTitle: {
     color: '#fff',
     fontSize: 20,
     marginLeft: 15,
     fontWeight: '600',
   },
-
   subText: {
     color: '#aaa',
     marginBottom: 25,
   },
-
   card: {
     backgroundColor: '#0F172A',
     padding: 20,
@@ -90,20 +96,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-
   cardTitle: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 5,
   },
-
   cardDesc: {
     color: '#aaa',
     fontSize: 13,
     lineHeight: 18,
   },
-
   arrow: {
     color: '#aaa',
     fontSize: 22,

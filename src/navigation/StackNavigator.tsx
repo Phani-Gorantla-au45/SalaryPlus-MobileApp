@@ -14,6 +14,8 @@ import TransactionHistory from '../components/Home/QuickActions/TransactionHisto
 import SideDrawer from '../components/Menu/SideDrawer';
 import RedeemOptions from '../components/Home/common_components/RedeemOptions';
 import TransactionStatus from '../screens/TransactionStatus';
+import PhysicalRedeem from '../components/Home/common_components/PhysicalRedeem';
+import BankTransferRedeem from '../components/Home/common_components/BankTransferRedeem';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,10 +38,7 @@ const StackNavigator = () => {
 
   return (
     <>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName={initialRoute}
-      >
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRoute}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Otp" component={OtpScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
@@ -54,21 +53,16 @@ const StackNavigator = () => {
         <Stack.Screen name="GoldSIP" component={GoldSIP} />
         <Stack.Screen name="BuySilver" component={BuySilver} />
         <Stack.Screen name="SilverSIP" component={SilverSIP} />
-        <Stack.Screen name="TransactionHistory" component={TransactionHistory}/>
-        <Stack.Screen name="RedeemOptions"component={RedeemOptions}/>
-        <Stack.Screen
-        name="TransactionStatus"
-        component={TransactionStatus}
-        options={{ headerShown: false }}
-      />
+        <Stack.Screen name="TransactionHistory" component={TransactionHistory} />
+        <Stack.Screen name="RedeemOptions" component={RedeemOptions} />
+        <Stack.Screen name="PhysicalRedeem" component={PhysicalRedeem} />
+        <Stack.Screen name="BankTransferRedeem" component={BankTransferRedeem} />
+        <Stack.Screen name="TransactionStatus" component={TransactionStatus} options={{ headerShown: false }} />
       </Stack.Navigator>
 
-      <SideDrawer
-        visible={drawerVisible}
-        onClose={() => setDrawerVisible(false)}
-      />
+      <SideDrawer visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
 
-      
+
     </>
   );
 };
