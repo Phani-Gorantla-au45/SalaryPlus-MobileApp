@@ -8,11 +8,12 @@ import {
   Alert,
   SafeAreaView,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import { registerApi, createGoldAccountApi } from '../services/Home/authApi';
 import { saveToken } from '../utils/tokenStorage';
 import { CommonActions } from '@react-navigation/native';
-import { ToastAndroid } from 'react-native';
 
 const RegisterScreen = ({ route, navigation }: any) => {
   const tempToken = route?.params?.tempToken;
@@ -23,6 +24,38 @@ const RegisterScreen = ({ route, navigation }: any) => {
   const [stateName, setStateName] = useState('');
 
   const [errors, setErrors] = useState<any>({});
+
+  // 🇮🇳 All Indian States
+  const indianStates = [
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+  ];
 
   // 🔎 Form validation
   const validate = () => {
@@ -42,23 +75,18 @@ const RegisterScreen = ({ route, navigation }: any) => {
       newErrors.email = 'Enter valid email address';
     }
 
-    if (!stateName.trim()) {
+    if (!stateName) {
       newErrors.stateName = 'State is required';
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
   const handleRegister = async () => {
-
-    // 🔥 Validate before API call
     if (!validate()) return;
 
     try {
-      console.log('🚀 Calling register API...');
-
       const res = await registerApi(
         {
           First_name: firstName,
@@ -69,33 +97,24 @@ const RegisterScreen = ({ route, navigation }: any) => {
         tempToken
       );
 
-      console.log('✅ REGISTER RESPONSE:', res);
-
       if (res?.message || res?.success) {
 
-        // 🔐 Save JWT token permanently
         if (tempToken) {
           await saveToken(tempToken);
-          console.log('🔐 Token saved successfully');
         }
 
-        // 🪙 AUTO CREATE GOLD ACCOUNT
         try {
-          console.log('🪙 Creating Gold Account...');
-          const goldRes = await createGoldAccountApi();
-          console.log('🪙 GOLD ACCOUNT RESPONSE:', goldRes);
+          await createGoldAccountApi();
 
-          // ✅ Show Toast
           ToastAndroid.show(
             '🪙 Gold account activated successfully',
             ToastAndroid.SHORT
           );
 
         } catch (goldError) {
-          console.log('⚠️ Gold account creation failed:', goldError);
+          console.log('Gold account creation failed:', goldError);
         }
 
-        // 🔄 Reset navigation to MainTabs
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
@@ -108,7 +127,6 @@ const RegisterScreen = ({ route, navigation }: any) => {
       }
 
     } catch (error) {
-      console.log('❌ REGISTER ERROR:', error);
       Alert.alert('Error', 'Something went wrong');
     }
   };
@@ -128,10 +146,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
             placeholderTextColor="#888"
             value={firstName}
             onChangeText={setFirstName}
-            style={[
-              styles.input,
-              errors.firstName && styles.errorInput,
-            ]}
+            style={[styles.input, errors.firstName && styles.errorInput]}
           />
           {errors.firstName && (
             <Text style={styles.errorText}>{errors.firstName}</Text>
@@ -143,10 +158,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
             placeholderTextColor="#888"
             value={lastName}
             onChangeText={setLastName}
-            style={[
-              styles.input,
-              errors.lastName && styles.errorInput,
-            ]}
+            style={[styles.input, errors.lastName && styles.errorInput]}
           />
           {errors.lastName && (
             <Text style={styles.errorText}>{errors.lastName}</Text>
@@ -159,26 +171,31 @@ const RegisterScreen = ({ route, navigation }: any) => {
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
-            style={[
-              styles.input,
-              errors.email && styles.errorInput,
-            ]}
+            style={[styles.input, errors.email && styles.errorInput]}
           />
           {errors.email && (
             <Text style={styles.errorText}>{errors.email}</Text>
           )}
 
-          {/* STATE */}
-          <TextInput
-            placeholder="State"
-            placeholderTextColor="#888"
-            value={stateName}
-            onChangeText={setStateName}
+          {/* STATE DROPDOWN */}
+          <View
             style={[
-              styles.input,
+              styles.pickerContainer,
               errors.stateName && styles.errorInput,
             ]}
-          />
+          >
+            <Picker
+              selectedValue={stateName}
+              dropdownIconColor="#FFD700"
+              onValueChange={(itemValue) => setStateName(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Select State" value="" />
+              {indianStates.map((state) => (
+                <Picker.Item key={state} label={state} value={state} />
+              ))}
+            </Picker>
+          </View>
           {errors.stateName && (
             <Text style={styles.errorText}>{errors.stateName}</Text>
           )}
@@ -229,6 +246,15 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     fontSize: 15,
     marginBottom: 15,
+    color: '#FFD700',
+  },
+  pickerContainer: {
+    backgroundColor: '#000307',
+    borderRadius: 12,
+    marginBottom: 15,
+    justifyContent: 'center',
+  },
+  picker: {
     color: '#FFD700',
   },
   button: {
