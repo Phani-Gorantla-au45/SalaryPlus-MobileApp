@@ -10,7 +10,6 @@ import {
   ScrollView,
   ToastAndroid,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { registerApi, createGoldAccountApi } from '../services/Home/authApi';
 import { saveToken } from '../utils/tokenStorage';
 import { CommonActions } from '@react-navigation/native';
@@ -22,40 +21,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [stateName, setStateName] = useState('');
-
   const [errors, setErrors] = useState<any>({});
-
-  // 🇮🇳 All Indian States
-  const indianStates = [
-    'Andhra Pradesh',
-    'Arunachal Pradesh',
-    'Assam',
-    'Bihar',
-    'Chhattisgarh',
-    'Goa',
-    'Gujarat',
-    'Haryana',
-    'Himachal Pradesh',
-    'Jharkhand',
-    'Karnataka',
-    'Kerala',
-    'Madhya Pradesh',
-    'Maharashtra',
-    'Manipur',
-    'Meghalaya',
-    'Mizoram',
-    'Nagaland',
-    'Odisha',
-    'Punjab',
-    'Rajasthan',
-    'Sikkim',
-    'Tamil Nadu',
-    'Telangana',
-    'Tripura',
-    'Uttar Pradesh',
-    'Uttarakhand',
-    'West Bengal',
-  ];
 
   // 🔎 Form validation
   const validate = () => {
@@ -75,7 +41,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
       newErrors.email = 'Enter valid email address';
     }
 
-    if (!stateName) {
+    if (!stateName.trim()) {
       newErrors.stateName = 'State is required';
     }
 
@@ -103,24 +69,31 @@ const RegisterScreen = ({ route, navigation }: any) => {
           await saveToken(tempToken);
         }
 
-        try {
-          await createGoldAccountApi();
-
-          ToastAndroid.show(
-            '🪙 Gold account activated successfully',
-            ToastAndroid.SHORT
-          );
-
-        } catch (goldError) {
-          console.log('Gold account creation failed:', goldError);
-        }
-
+        // ✅ Navigate immediately (no waiting)
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
             routes: [{ name: 'MainTabs' }],
           })
         );
+
+        // ✅ Run gold creation in background
+        createGoldAccountApi()
+          .then((goldRes) => {
+            console.log("Gold API Response:", goldRes);
+
+            if (goldRes?.message === "Gold account created") {
+              ToastAndroid.show(
+                '🪙 Gold account activated successfully',
+                ToastAndroid.SHORT
+              );
+            } else {
+              console.log("Gold creation message:", goldRes?.message);
+            }
+          })
+          .catch((goldError) => {
+            console.log("Gold account creation failed:", goldError);
+          });
 
       } else {
         Alert.alert('Error', 'Registration failed');
@@ -177,25 +150,14 @@ const RegisterScreen = ({ route, navigation }: any) => {
             <Text style={styles.errorText}>{errors.email}</Text>
           )}
 
-          {/* STATE DROPDOWN */}
-          <View
-            style={[
-              styles.pickerContainer,
-              errors.stateName && styles.errorInput,
-            ]}
-          >
-            <Picker
-              selectedValue={stateName}
-              dropdownIconColor="#FFD700"
-              onValueChange={(itemValue) => setStateName(itemValue)}
-              style={styles.picker}
-            >
-              <Picker.Item label="Select State" value="" />
-              {indianStates.map((state) => (
-                <Picker.Item key={state} label={state} value={state} />
-              ))}
-            </Picker>
-          </View>
+          {/* STATE MANUAL INPUT */}
+          <TextInput
+            placeholder="State"
+            placeholderTextColor="#888"
+            value={stateName}
+            onChangeText={setStateName}
+            style={[styles.input, errors.stateName && styles.errorInput]}
+          />
           {errors.stateName && (
             <Text style={styles.errorText}>{errors.stateName}</Text>
           )}
@@ -246,15 +208,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     fontSize: 15,
     marginBottom: 15,
-    color: '#FFD700',
-  },
-  pickerContainer: {
-    backgroundColor: '#000307',
-    borderRadius: 12,
-    marginBottom: 15,
-    justifyContent: 'center',
-  },
-  picker: {
     color: '#FFD700',
   },
   button: {
