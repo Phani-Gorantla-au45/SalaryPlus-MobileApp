@@ -21,7 +21,7 @@ const BuySilver = () => {
   const [isAmountMode, setIsAmountMode] = useState(true);
 
   const numericAmount = Number(amount);
-  const isValid = !isNaN(numericAmount) && numericAmount >= 0.1;
+  const isValid = !isNaN(numericAmount) && numericAmount >= 2;
 
   const silverPrice = rates?.sBuy ?? 0;
 
@@ -50,24 +50,24 @@ const BuySilver = () => {
       const response = await createSilverIntentApi(payload);
 
       console.log('📥 FULL API RESPONSE:', response);
-      console.log('📦 merchantTransactionId:', response?.data?.merchantTransactionId);
-      console.log('🔗 upiDeeplink:', response?.data?.upiDeeplink);
 
       if (response?.success && response?.data?.upiDeeplink) {
-        console.log('✅ Intent created successfully');
 
-        console.log('📲 Opening UPI App...');
-        await Linking.openURL(response.data.upiDeeplink);
-
-        console.log('➡ Navigating to TransactionStatus screen');
-
+        // ✅ Navigate FIRST
         navigation.navigate('TransactionStatus', {
           merchantRequestId: response.data.merchantTransactionId,
-          amount: Number(amount),
-          metalType: 'Silver',
         });
+
+        // ✅ Then open UPI
+        const supported = await Linking.canOpenURL(response.data.upiDeeplink);
+
+        if (supported) {
+          await Linking.openURL(response.data.upiDeeplink);
+        } else {
+          Alert.alert('Error', 'No UPI app found');
+        }
+
       } else {
-        console.log('❌ Intent failed response:', response);
         Alert.alert('Error', 'Intent creation failed');
       }
 

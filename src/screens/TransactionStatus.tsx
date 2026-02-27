@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,9 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { checkTransactionStatusApi } from '../services/Home/authApi';
+
+const POLL_INTERVAL = 3000; // 3 seconds
+const MAX_POLL_TIME = 60 * 1000; // 1 minute
 
 const TransactionStatus = () => {
   const route = useRoute<any>();
@@ -18,70 +21,74 @@ const TransactionStatus = () => {
   const [status, setStatus] = useState<'SUCCESS' | 'FAILED' | 'PENDING' | null>(null);
   const [metalType, setMetalType] = useState<string | null>(null);
 
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimeRef = useRef<number>(Date.now());
+
   useEffect(() => {
-    checkStatus();
+    startPolling();
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, []);
 
-  const checkStatus = async () => {
-    try {
-      console.log('📤 Checking Status For:', merchantRequestId);
+  const startPolling = () => {
+    intervalRef.current = setInterval(async () => {
+      try {
+        console.log('🔁 Polling payment status...');
 
-      const response = await checkTransactionStatusApi({
-        merchantRequestId,
-      });
+        const response = await checkTransactionStatusApi({
+          merchantRequestId,
+        });
 
-      console.log('📥 FULL STATUS RESPONSE:', response);
+        console.log('📥 STATUS RESPONSE:', response);
 
-      // 🔎 Detailed Debug Logs
-      console.log("🔎 FINAL STATUS:", response?.status);
-      console.log("🔎 SUCCESS FLAG:", response?.success);
-      console.log("🔎 TXN EXISTS:", !!response?.txn);
-      console.log("🔎 TXN STATUS:", response?.txn?.status);
-      console.log("🔎 PROVIDER STATUS:", response?.txn?.providerStatus);
+        const txnStatus = response?.txn?.status;
 
-      /**
-       * ✅ SUCCESS CONDITION
-       * We trust backend status OR txn.status
-       */
-      if (
-        response?.success &&
-        response?.txn &&
-        (response?.status === 'SUCCESS' || response?.txn?.status === 'SUCCESS')
-      ) {
-        console.log("✅ SUCCESS BLOCK TRIGGERED");
+        /* ---------------- SUCCESS ---------------- */
+        if (txnStatus === 'SUCCESS') {
+          console.log('✅ PAYMENT SUCCESS DETECTED');
 
-        setQuantity(response.txn.quantity);
-        setTxnId(response.txn.merchantTransactionId);
-        setMetalType(response.txn.metalType);
-        setStatus('SUCCESS');
+          setQuantity(response.txn.quantity);
+          setTxnId(response.txn.merchantTransactionId);
+          setMetalType(response.txn.metalType);
+          setStatus('SUCCESS');
 
-        return;
-      }
+          clearInterval(intervalRef.current!);
+          return;
+        }
 
-      /**
-       * ⏳ PENDING CONDITION
-       */
-      if (
-        response?.status === 'PENDING' ||
-        response?.txn?.status === 'PENDING'
-      ) {
-        console.log("⏳ PAYMENT STILL PENDING");
+        /* ---------------- FAILURE ---------------- */
+        if (txnStatus === 'FAILED') {
+          console.log('❌ PAYMENT FAILED DETECTED');
+
+          setStatus('FAILED');
+          clearInterval(intervalRef.current!);
+          return;
+        }
+
+        /* ---------------- PENDING ---------------- */
         setStatus('PENDING');
-        return;
+
+        /* ---------------- TIMEOUT SAFETY ---------------- */
+        if (Date.now() - startTimeRef.current > MAX_POLL_TIME) {
+          console.log('⏰ PAYMENT TIMEOUT');
+
+          setStatus('FAILED');
+          clearInterval(intervalRef.current!);
+        }
+
+      } catch (error) {
+        console.log('🔥 Polling Error:', error);
+
+        // Do NOT mark failed for network issues
+        setStatus('PENDING');
+      } finally {
+        setLoading(false);
       }
-
-      /**
-       * ❌ FAILURE FALLBACK
-       */
-      console.log("❌ FAILED BLOCK TRIGGERED");
-      setStatus('FAILED');
-
-    } catch (error) {
-      console.log('🔥 STATUS ERROR:', error);
-      setStatus('FAILED');
-    } finally {
-      setLoading(false);
-    }
+    }, POLL_INTERVAL);
   };
 
   /* ---------------- LOADING SCREEN ---------------- */

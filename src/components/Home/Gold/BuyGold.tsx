@@ -46,23 +46,27 @@ const BuyGold = () => {
       console.log('Intent Response:', response);
 
       if (response?.success && response?.data?.upiDeeplink) {
+
+        // Navigate immediately to status screen
+        navigation.navigate('TransactionStatus', {
+          merchantRequestId: response.data.merchantTransactionId,
+        });
+
         const supported = await Linking.canOpenURL(response.data.upiDeeplink);
 
         if (supported) {
           await Linking.openURL(response.data.upiDeeplink);
-          // Navigate to status screen after slight delay
-          setTimeout(() => {
-            navigation.navigate('TransactionStatus', {
-              merchantRequestId: response.data.merchantTransactionId,
-            });
-          }, 3000);
         } else {
           Alert.alert("Error", "No UPI app found on this device");
         }
+
+      } else {
+        Alert.alert("Error", "Intent creation failed");
       }
 
     } catch (error) {
       console.log('Intent Error:', error);
+      Alert.alert("Error", "Something went wrong");
     }
   };
   console.log("SENDING:", {
