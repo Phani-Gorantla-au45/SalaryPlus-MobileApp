@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const SilverComponent = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Silver Content</Text>
+      {/* <Text style={styles.text}>Silver Content</Text> */}
     </View>
   );
 };

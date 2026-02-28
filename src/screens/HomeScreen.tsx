@@ -79,7 +79,7 @@ const Home = ({ openDrawer }: any) => {
         </View>
 
         {loading ? (
-          <ActivityIndicator style={{ marginTop: 40 }} size="large" color="#FFD700" />
+          <ActivityIndicator style={{ marginTop: 40 }} size="large" color="#D4AF37" />
         ) : active === 'gold' ? (
           <Gold price={rates?.gBuy ?? 0} />
         ) : (
@@ -97,17 +97,17 @@ export default Home;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#000307',
+    backgroundColor: '#121212', // Premium dark background
   },
 
   header: {
     height: 90,
-    backgroundColor: '#FFD700',
+    backgroundColor: '#1E1E1E', // Dark header instead of bright yellow
     justifyContent: 'flex-end',
     paddingBottom: 15,
     paddingHorizontal: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
   },
 
   container: {
@@ -117,21 +117,21 @@ const styles = StyleSheet.create({
 
   toggleContainer: {
     flexDirection: 'row',
-    backgroundColor: '#000001',
-    padding: 5,
-    marginTop: 20,
-    borderRadius: 8,
+    backgroundColor: '#1E1E1E',
+    padding: 6,
+    marginTop: 25,
+    borderRadius: 12,
   },
 
   toggleButton: {
     flex: 1,
-    padding: 12,
+    paddingVertical: 14,
     alignItems: 'center',
-    borderRadius: 6,
+    borderRadius: 10,
   },
 
   activeGold: {
-    backgroundColor: '#FFD700',
+    backgroundColor: '#D4AF37',
   },
 
   activeSilver: {
@@ -139,12 +139,14 @@ const styles = StyleSheet.create({
   },
 
   toggleText: {
-    color: '#aaa',
+    color: '#9CA3AF',
     fontWeight: '600',
+    fontSize: 15,
   },
 
   activeText: {
-    color: '#000',
+    color: '#121212',
     fontWeight: 'bold',
+    fontSize: 15,
   },
 });

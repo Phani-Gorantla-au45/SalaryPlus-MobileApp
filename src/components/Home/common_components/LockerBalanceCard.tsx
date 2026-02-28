@@ -66,65 +66,66 @@ const LockerBalanceCard: React.FC<Props> = ({
 };
 
 export default LockerBalanceCard;
-
 const styles = StyleSheet.create({
   card: {
     marginTop: 25,
-    padding: 20,
-    backgroundColor: '#0F172A',
-    borderRadius: 20,
-    alignItems:"center"
+    padding: 22,
+    backgroundColor: '#1E1E1E',
+    borderRadius: 22,
   },
 
   title: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#fff',
-    marginBottom: 15,
+    color: '#F5F5F5',
+    marginBottom: 18,
   },
 
   valueBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#1E293B',
+    backgroundColor: '#252525',
     padding: 20,
-    borderRadius: 15,
+    borderRadius: 18,
     alignItems: 'center',
   },
 
   label: {
-    color: '#aaa',
+    color: '#9CA3AF',
     fontSize: 13,
+    letterSpacing: 0.3,
   },
 
   value: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    marginTop: 5,
+    marginTop: 6,
   },
 
   quantity: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#fff',
-    marginTop: 5,
+    color: '#F5F5F5',
+    marginTop: 6,
   },
 
   divider: {
     width: 1,
-    height: 40,
-    backgroundColor: '#334155',
+    height: 45,
+    backgroundColor: '#2F2F2F',
   },
 
   button: {
-    marginTop: 20,
-    padding: 15,
-    borderRadius: 15,
+    marginTop: 25,
+    paddingVertical: 16,
+    borderRadius: 18,
     alignItems: 'center',
   },
 
   buttonText: {
     fontWeight: 'bold',
-    color: '#000',
+    color: '#121212',
+    fontSize: 16,
+    letterSpacing: 0.5,
   },
 });

@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const Silver = ({ price }: { price: number | null }) => {
   return (
-    <View style={{ marginTop: 40, alignItems: 'center' }}>
-      <Text style={{ color: '#aaa' }}>Live Silver Price</Text>
-      <Text style={{ color: '#C0C0C0', fontSize: 22, fontWeight: 'bold' }}>
+    <View style={styles.container}>
+      <Text style={styles.label}>Live Silver Price</Text>
+      <Text style={styles.price}>
         ₹ {price ? price.toFixed(2) : '0.00'}
       </Text>
     </View>
@@ -13,3 +13,23 @@ const Silver = ({ price }: { price: number | null }) => {
 };
 
 export default Silver;
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 50,
+    alignItems: 'center',
+  },
+
+  label: {
+    color: '#9CA3AF', // softer grey
+    fontSize: 14,
+    letterSpacing: 0.5,
+  },
+
+  price: {
+    color: '#BFC1C2', // upgraded metallic silver
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginTop: 8,
+  },
+});

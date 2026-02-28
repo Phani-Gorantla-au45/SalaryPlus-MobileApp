@@ -69,46 +69,56 @@ export default RedeemOptions;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000814',
+    backgroundColor: '#121212',
     padding: 20,
   },
+
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 25,
   },
+
   headerTitle: {
-    color: '#fff',
+    color: '#F5F5F5',
     fontSize: 20,
     marginLeft: 15,
     fontWeight: '600',
   },
+
   subText: {
-    color: '#aaa',
-    marginBottom: 25,
+    color: '#9CA3AF',
+    marginBottom: 30,
+    fontSize: 14,
   },
+
   card: {
-    backgroundColor: '#0F172A',
-    padding: 20,
-    borderRadius: 15,
+    backgroundColor: '#1E1E1E',
+    padding: 22,
+    borderRadius: 18,
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
   },
+
   cardTitle: {
-    color: '#fff',
+    color: '#F5F5F5',
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 5,
+    marginBottom: 6,
   },
+
   cardDesc: {
-    color: '#aaa',
+    color: '#9CA3AF',
     fontSize: 13,
-    lineHeight: 18,
+    lineHeight: 20,
   },
+
   arrow: {
-    color: '#aaa',
-    fontSize: 22,
+    color: '#9CA3AF',
+    fontSize: 24,
   },
 });

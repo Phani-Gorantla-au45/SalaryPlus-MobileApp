@@ -148,91 +148,97 @@ export default BuyGold;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000307',
+    backgroundColor: '#121212', // premium dark
     padding: 20,
   },
 
   priceCard: {
-    backgroundColor: '#111',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 30,
+    backgroundColor: '#1E1E1E',
+    padding: 18,
+    borderRadius: 16,
+    marginBottom: 35,
     borderWidth: 1,
-    borderColor: '#FFD700',
-    marginTop: 50
+    borderColor: '#D4AF37', // metallic gold
+    marginTop: 50,
   },
 
   priceLabel: {
-    color: '#aaa',
+    color: '#9CA3AF',
     fontSize: 14,
+    letterSpacing: 0.5,
   },
 
   priceValue: {
-    color: '#FFD700',
-    fontSize: 18,
+    color: '#D4AF37',
+    fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 4,
+    marginTop: 6,
   },
 
   toggleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 30,
+    marginBottom: 35,
   },
 
   toggleText: {
-    color: '#888',
+    color: '#6B7280',
     fontSize: 16,
-    marginHorizontal: 10,
+    marginHorizontal: 12,
   },
 
   activeToggleText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: '#F5F5F5',
+    fontWeight: '600',
   },
 
   inputContainer: {
-    backgroundColor: '#1c2333',
-    borderRadius: 14,
-    paddingHorizontal: 16,
-    paddingVertical: 20,
+    backgroundColor: '#1E1E1E',
+    borderRadius: 16,
+    paddingHorizontal: 18,
+    paddingVertical: 22,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
   },
 
   input: {
-    color: '#fff',
-    fontSize: 18,
+    color: '#F5F5F5',
+    fontSize: 20,
     flex: 1,
+    fontWeight: '500',
   },
 
   currency: {
-    color: '#aaa',
+    color: '#9CA3AF',
     fontSize: 18,
   },
 
   errorText: {
-    color: '#ff4d4d',
+    color: '#EF4444',
     marginTop: 12,
+    fontSize: 14,
   },
 
   buyButton: {
-    marginTop: 40,
-    backgroundColor: '#FFD700',
+    marginTop: 45,
+    backgroundColor: '#D4AF37',
     paddingVertical: 18,
-    borderRadius: 14,
+    borderRadius: 16,
     alignItems: 'center',
   },
 
   disabledButton: {
-    backgroundColor: '#665c00',
+    backgroundColor: '#5C4B1E',
   },
 
   buyText: {
-    color: '#000',
+    color: '#121212',
     fontWeight: 'bold',
     fontSize: 18,
+    letterSpacing: 0.5,
   },
 });
