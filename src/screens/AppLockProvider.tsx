@@ -4,8 +4,8 @@ import ReactNativeBiometrics from 'react-native-biometrics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LockScreen from './LockScreen';
 
-// const TIMEOUT = 2 * 60 * 1000; // 2 minutes
-const TIMEOUT = 10000; // 5 seconds
+const TIMEOUT = 2 * 60 * 1000; // 2 minutes
+// const TIMEOUT = 10000; // 5 seconds
 
 const AppLockProvider = ({ children }: any) => {
     const appState = useRef(AppState.currentState);
