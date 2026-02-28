@@ -70,60 +70,72 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#000307',
+    backgroundColor: '#121212',
   },
+
   container: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 20,
+    padding: 24,
   },
+
   card: {
-    backgroundColor: '#FFD700',
-    borderRadius: 20,
-    padding: 25,
-    elevation: 10,
+    backgroundColor: '#1E1E1E',
+    borderRadius: 24,
+    padding: 28,
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
   },
+
   heading: {
     fontSize: 26,
     fontWeight: '700',
-    color: '#000307',
-    marginBottom: 6,
+    color: '#F5F5F5',
+    marginBottom: 8,
   },
+
   subText: {
     fontSize: 14,
-    color: '#000307',
-    marginBottom: 25,
+    color: '#9CA3AF',
+    marginBottom: 30,
   },
+
   phoneContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#000307',
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    marginBottom: 20,
+    backgroundColor: '#252525',
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    marginBottom: 25,
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
   },
+
   prefix: {
     fontSize: 15,
-    color: '#FFD700',
-    marginRight: 8,
+    color: '#D4AF37',
+    marginRight: 10,
     fontWeight: '600',
   },
+
   input: {
     flex: 1,
-    paddingVertical: 14,
-    fontSize: 15,
-    color: '#FFD700',
-  },
-  button: {
-    backgroundColor: '#000307',
     paddingVertical: 16,
-    borderRadius: 14,
+    fontSize: 16,
+    color: '#F5F5F5',
+  },
+
+  button: {
+    backgroundColor: '#D4AF37',
+    paddingVertical: 16,
+    borderRadius: 18,
     alignItems: 'center',
   },
+
   buttonText: {
-    color: '#FFD700',
+    color: '#121212',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
+    letterSpacing: 0.5,
   },
 });
-

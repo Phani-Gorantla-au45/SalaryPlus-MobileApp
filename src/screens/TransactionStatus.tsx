@@ -95,7 +95,7 @@ const TransactionStatus = () => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#FFD700" />
+        <ActivityIndicator size="large" color="#D4AF37" />
         <Text style={styles.loadingText}>
           Checking payment status...
         </Text>
@@ -128,7 +128,8 @@ const TransactionStatus = () => {
   if (status === 'PENDING') {
     return (
       <View style={styles.container}>
-        <Text style={styles.pending}>⏳ Payment Processing...</Text>
+        <ActivityIndicator size="large" color="#D4AF37" />
+        <Text style={styles.loadingText}>Payment Processing...</Text>
       </View>
     );
   }
@@ -146,46 +147,57 @@ export default TransactionStatus;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000307',
+    backgroundColor: '#121212',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 24,
   },
+
   loadingText: {
-    marginTop: 15,
-    color: '#fff',
+    marginTop: 18,
+    color: '#9CA3AF',
+    fontSize: 14,
   },
+
   card: {
-    backgroundColor: '#111827',
-    padding: 25,
-    borderRadius: 15,
+    backgroundColor: '#1E1E1E',
+    padding: 28,
+    borderRadius: 24,
     width: '100%',
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
   },
+
   success: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '700',
     color: '#22C55E',
-    marginBottom: 20,
+    marginBottom: 24,
     textAlign: 'center',
   },
+
   failed: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '700',
     color: '#EF4444',
   },
+
   pending: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FACC15',
+    fontWeight: '700',
+    color: '#D4AF37',
   },
+
   label: {
-    color: '#aaa',
-    marginTop: 10,
+    color: '#9CA3AF',
+    marginTop: 12,
+    fontSize: 13,
   },
+
   value: {
-    color: '#fff',
+    color: '#F5F5F5',
     fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 4,
+    fontWeight: '700',
+    marginTop: 6,
   },
 });

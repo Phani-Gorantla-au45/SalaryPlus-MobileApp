@@ -11,6 +11,7 @@ const Home = ({ openDrawer }: any) => {
   const { rates, setRates } = useRates();
   const [active, setActive] = useState<'gold' | 'silver'>('gold');
   const [loading, setLoading] = useState(true);
+  const accentColor = active === 'gold' ? '#D4AF37' : '#BFC1C2';
 
   const fetchRates = async () => {
     try {
@@ -33,10 +34,10 @@ const Home = ({ openDrawer }: any) => {
 
   return (
     <View style={styles.root}>
-      
+
       <View style={styles.header}>
         <TouchableOpacity onPress={openDrawer}>
-          <TabIcon name="menu" size={26} color="#1E293B" />
+          <TabIcon name="menu" size={26} color={accentColor} />
         </TouchableOpacity>
       </View>
 
@@ -79,7 +80,11 @@ const Home = ({ openDrawer }: any) => {
         </View>
 
         {loading ? (
-          <ActivityIndicator style={{ marginTop: 40 }} size="large" color="#D4AF37" />
+          <ActivityIndicator
+            style={{ marginTop: 40 }}
+            size="large"
+            color={accentColor}
+          />
         ) : active === 'gold' ? (
           <Gold price={rates?.gBuy ?? 0} />
         ) : (
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
   },
 
   activeSilver: {
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#BFC1C2',
   },
 
   toggleText: {

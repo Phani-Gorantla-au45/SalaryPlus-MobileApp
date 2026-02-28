@@ -91,7 +91,7 @@ const OtpScreen = ({ route, navigation }: any) => {
                         disabled={loading}
                     >
                         {loading ? (
-                            <ActivityIndicator color="#fff" />
+                            <ActivityIndicator color="#121212" />
                         ) : (
                             <Text style={styles.buttonText}>Verify & Continue</Text>
                         )}
@@ -111,67 +111,80 @@ export default OtpScreen;
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: '#000307',
+        backgroundColor: '#121212',
     },
+
     container: {
         flexGrow: 1,
         justifyContent: 'center',
-        padding: 20,
+        padding: 24,
     },
+
     card: {
-        backgroundColor: '#FFD700',
-        borderRadius: 20,
-        padding: 25,
-        elevation: 10,
+        backgroundColor: '#1E1E1E',
+        borderRadius: 24,
+        padding: 28,
+        borderWidth: 1,
+        borderColor: '#2A2A2A',
         alignItems: 'center',
     },
+
     heading: {
         fontSize: 24,
         fontWeight: '700',
-        color: '#000307',
-        marginBottom: 5,
+        color: '#F5F5F5',
+        marginBottom: 8,
     },
+
     subText: {
         fontSize: 14,
-        color: '#000307',
+        color: '#9CA3AF',
     },
+
     phoneText: {
         fontSize: 15,
         fontWeight: '600',
-        color: '#000307',
-        marginBottom: 25,
+        color: '#D4AF37',
+        marginBottom: 30,
     },
+
     otpInput: {
         width: '100%',
-        backgroundColor: '#000307',
-        borderRadius: 14,
+        backgroundColor: '#252525',
+        borderRadius: 18,
         paddingVertical: 18,
         fontSize: 24,
-        letterSpacing: 10,
+        letterSpacing: 12,
         textAlign: 'center',
-        marginBottom: 25,
-        color: '#FFD700',
+        marginBottom: 28,
+        color: '#F5F5F5',
+        borderWidth: 1,
+        borderColor: '#2A2A2A',
     },
+
     button: {
         width: '100%',
-        backgroundColor: '#000307',
+        backgroundColor: '#D4AF37',
         paddingVertical: 16,
-        borderRadius: 14,
+        borderRadius: 18,
         alignItems: 'center',
     },
+
     buttonText: {
-        color: '#FFD700',
+        color: '#121212',
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '700',
+        letterSpacing: 0.5,
     },
+
     resendText: {
-        marginTop: 20,
+        marginTop: 22,
         fontSize: 13,
-        color: '#000307',
+        color: '#9CA3AF',
     },
+
     resendLink: {
-        color: '#000307',
+        color: '#D4AF37',
         fontWeight: '600',
     },
 });
-
