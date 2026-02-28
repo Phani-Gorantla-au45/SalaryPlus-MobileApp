@@ -29,7 +29,7 @@ const LockerBalanceCard: React.FC<Props> = ({
           <Text
             style={[
               styles.value,
-              { color: isGold ? '#FFD700' : '#C0C0C0' },
+              { color: isGold ? '#D4AF37' : '#C0C0C0' },
             ]}
           >
             ₹ {value?.toFixed(2) ?? '0.00'}
@@ -51,7 +51,7 @@ const LockerBalanceCard: React.FC<Props> = ({
       <TouchableOpacity
         style={[
           styles.button,
-          { backgroundColor: isGold ? '#FFD700' : '#C0C0C0' },
+          { backgroundColor: isGold ? '#D4AF37' : '#C0C0C0' },
         ]}
         onPress={() =>
           navigation.navigate('RedeemOptions', { metal })

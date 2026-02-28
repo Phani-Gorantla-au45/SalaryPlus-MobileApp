@@ -15,6 +15,7 @@ const BuyButton: React.FC<Props> = ({ title, color, screen }) => {
     <TouchableOpacity
       style={[styles.button, { borderColor: color }]}
       onPress={() => navigation.navigate(screen)}
+      activeOpacity={0.8}
     >
       <Text style={[styles.text, { color }]}>{title}</Text>
     </TouchableOpacity>
@@ -26,11 +27,16 @@ export default BuyButton;
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    borderWidth: 1,
-    padding: 14,
+    paddingVertical: 16,
+    borderRadius: 18,
     alignItems: 'center',
+    borderWidth: 1.5,
+    backgroundColor: 'transparent',
   },
+
   text: {
-    fontWeight: '600',
+    fontWeight: '700',
+    fontSize: 16,
+    letterSpacing: 0.6,
   },
 });

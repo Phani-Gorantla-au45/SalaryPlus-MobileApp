@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   title: {
-    color: '#FFD700',
+    color: '#D4AF37',
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 15,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 30,
-    backgroundColor: '#FFD700',
+    backgroundColor: '#D4AF37',
     padding: 15,
     borderRadius: 12,
     alignItems: 'center',

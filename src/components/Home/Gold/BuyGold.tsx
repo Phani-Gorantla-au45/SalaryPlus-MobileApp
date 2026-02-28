@@ -97,7 +97,7 @@ const BuyGold = () => {
         <Switch
           value={!isAmountMode}
           onValueChange={() => setIsAmountMode(!isAmountMode)}
-          thumbColor="#FFD700"
+          thumbColor="#D4AF37"
           trackColor={{ false: '#333', true: '#333' }}
         />
 

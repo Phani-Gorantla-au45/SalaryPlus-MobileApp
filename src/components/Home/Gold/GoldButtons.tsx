@@ -8,7 +8,7 @@ const GoldButtons = () => {
     <View style={styles.container}>
       <BuyButton
         title="Buy Gold"
-        color="#FFD700"
+        color="#D4AF37"
         screen="BuyGold"
       />
       <View style={{ width: 10 }} />

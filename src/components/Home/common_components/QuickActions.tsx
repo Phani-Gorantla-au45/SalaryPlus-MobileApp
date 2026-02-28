@@ -14,7 +14,7 @@ const QuickActions = () => {
         style={styles.item}
         onPress={() => navigation.navigate('TransactionHistory')}
       >
-        <TabIcon name="receipt-outline" size={22} color="#FFD700" />
+        <TabIcon name="receipt-outline" size={22} color="#D4AF37" />
 
         <View style={styles.textContainer}>
           <Text style={styles.title}>Transaction History</Text>

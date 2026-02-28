@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const GoldComponent = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Gold Content</Text>
+      {/* <Text style={styles.text}>Gold Content</Text> */}
     </View>
   );
 };
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   text: {
-    color: '#FFD700',
+    color: '#D4AF37',
     fontSize: 18,
     fontWeight: 'bold',
   },

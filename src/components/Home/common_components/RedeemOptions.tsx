@@ -16,7 +16,7 @@ const RedeemOptions = ({ route, navigation }: any) => {
       {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <TabIcon name="arrow-back" size={26} color="#FFD700" />
+          <TabIcon name="arrow-back" size={26} color="#D4AF37" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Redeem Options</Text>
       </View>
