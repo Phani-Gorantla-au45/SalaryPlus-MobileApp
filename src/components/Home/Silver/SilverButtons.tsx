@@ -8,10 +8,10 @@ const SilverButtons = () => {
     <View style={styles.container}>
       <BuyButton
         title="Buy Silver"
-        color="#C0C0C0"
+        color="#BFC1C2"   // upgraded metallic silver
         screen="BuySilver"
       />
-      <View style={{ width: 10 }} />
+      <View style={styles.spacing} />
       <SipButton
         title="Start SIP"
         screen="SilverSIP"
@@ -26,5 +26,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginTop: 30,
+  },
+  spacing: {
+    width: 12,
   },
 });

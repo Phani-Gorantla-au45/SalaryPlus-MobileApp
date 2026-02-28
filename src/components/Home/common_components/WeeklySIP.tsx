@@ -4,13 +4,16 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const WeeklySIP = ({ route, navigation }: any) => {
   const { metal } = route.params;
 
+  const isGold = metal === 'Gold';
+  const accentColor = isGold ? '#D4AF37' : '#BFC1C2';
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.back}>←</Text>
+        <Text style={[styles.back, { color: accentColor }]}>←</Text>
       </TouchableOpacity>
 
-      <Text style={styles.title}>
+      <Text style={[styles.title, { color: accentColor }]}>
         Weekly {metal} SIP
       </Text>
 
@@ -18,7 +21,9 @@ const WeeklySIP = ({ route, navigation }: any) => {
         Invest weekly and build disciplined {metal.toLowerCase()} savings.
       </Text>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: accentColor }]}
+      >
         <Text style={styles.buttonText}>Start Weekly SIP</Text>
       </TouchableOpacity>
     </View>
@@ -30,32 +35,38 @@ export default WeeklySIP;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000814',
+    backgroundColor: '#121212',
     padding: 20,
   },
+
   back: {
     fontSize: 26,
-    color: '#fff',
   },
+
   title: {
-    color: '#FFD700',
     fontSize: 22,
-    fontWeight: 'bold',
-    marginTop: 20,
+    fontWeight: '700',
+    marginTop: 25,
   },
+
   desc: {
-    color: '#aaa',
-    marginTop: 15,
+    color: '#9CA3AF',
+    marginTop: 18,
+    fontSize: 14,
+    lineHeight: 22,
   },
+
   button: {
-    marginTop: 40,
-    backgroundColor: '#FFD700',
-    padding: 15,
-    borderRadius: 15,
+    marginTop: 45,
+    paddingVertical: 16,
+    borderRadius: 18,
     alignItems: 'center',
   },
+
   buttonText: {
-    color: '#000',
-    fontWeight: 'bold',
+    color: '#121212',
+    fontWeight: '700',
+    fontSize: 16,
+    letterSpacing: 0.5,
   },
 });

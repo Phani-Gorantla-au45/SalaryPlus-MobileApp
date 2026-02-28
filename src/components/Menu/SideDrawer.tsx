@@ -58,40 +58,49 @@ const SideDrawer = ({ visible, onClose }: any) => {
 export default SideDrawer;
 
 const styles = StyleSheet.create({
-    backdrop: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0,0,0,0.4)',
-    },
-    drawer: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        bottom: 0,
-        width: width * 0.75,
-        backgroundColor: '#000309',
-        paddingTop: 60,
-        paddingHorizontal: 20,
-        justifyContent: 'space-between',
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.6)', // slightly deeper overlay
+  },
 
-    },
-    profileSection: {
-        marginBottom: 40,
-    },
-    name: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: '600',
-    },
-    phone: {
-        color: '#94A3B8',
-        marginTop: 5,
-    },
-    signOutButton: {
-        marginBottom: 50,
-    },
-    signOutText: {
-        color: '#FACC15',
-        fontSize: 16,
-        fontWeight: '600',
-    },
+  drawer: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: width * 0.78,
+    backgroundColor: '#121212', // premium dark
+    paddingTop: 70,
+    paddingHorizontal: 24,
+    justifyContent: 'space-between',
+    borderRightWidth: 1,
+    borderRightColor: '#1E1E1E',
+  },
+
+  profileSection: {
+    marginBottom: 40,
+  },
+
+  name: {
+    color: '#F5F5F5',
+    fontSize: 20,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+  },
+
+  phone: {
+    color: '#9CA3AF',
+    marginTop: 6,
+    fontSize: 14,
+  },
+
+  signOutButton: {
+    marginBottom: 50,
+  },
+
+  signOutText: {
+    color: '#D4AF37', // metallic gold
+    fontSize: 16,
+    fontWeight: '600',
+  },
 });

@@ -69,7 +69,7 @@ export default SilverSIP;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000814',
+    backgroundColor: '#121212', // premium dark
     padding: 20,
   },
 
@@ -77,25 +77,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 35,
   },
 
   backArrow: {
     fontSize: 26,
-    color: '#fff',
+    color: '#BFC1C2', // metallic silver
   },
 
   headerTitle: {
-    color: '#fff',
+    color: '#F5F5F5',
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 
   sectionTitle: {
-    color: '#C0C0C0',
+    color: '#BFC1C2', // accent silver
     fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontWeight: '700',
+    marginBottom: 25,
   },
 
   grid: {
@@ -103,19 +103,23 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: '#111c2f',
-    padding: 25,
-    borderRadius: 20,
+    backgroundColor: '#1E1E1E',
+    padding: 24,
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
   },
 
   cardTitle: {
-    color: '#fff',
+    color: '#F5F5F5',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '700',
     marginBottom: 8,
   },
 
   cardSub: {
-    color: '#aaa',
+    color: '#9CA3AF',
+    fontSize: 14,
+    lineHeight: 20,
   },
 });

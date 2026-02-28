@@ -45,10 +45,16 @@ export default SignOutButton;
 const styles = StyleSheet.create({
   button: {
     marginBottom: 50,
+    paddingVertical: 14,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#D4AF37',
+    alignItems: 'center',
   },
   text: {
-    color: '#FFD700',
+    color: '#D4AF37', // metallic gold
     fontSize: 16,
     fontWeight: '600',
+    letterSpacing: 0.5,
   },
 });

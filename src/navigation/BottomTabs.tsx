@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View, StyleSheet } from 'react-native';
 import TabIcon from '../asserts/TabIcon';
 
 import Home from '../screens/HomeScreen';
@@ -12,12 +13,15 @@ const BottomTabs = ({ openDrawer }: any) => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#000',
-        },
-        tabBarActiveTintColor: '#FFD700',
-        tabBarInactiveTintColor: '#888',
-        tabBarIcon: ({ color, size }) => {
+
+        tabBarStyle: styles.tabBar,
+
+        tabBarActiveTintColor: '#D4AF37', // metallic gold
+        tabBarInactiveTintColor: '#6B7280', // softer grey
+
+        tabBarLabelStyle: styles.label,
+
+        tabBarIcon: ({ color, size, focused }) => {
           let iconName: 'home' | 'bonds';
 
           if (route.name === 'Home') {
@@ -27,7 +31,9 @@ const BottomTabs = ({ openDrawer }: any) => {
           }
 
           return (
-            <TabIcon name={iconName} color={color} size={size} />
+            <View style={focused ? styles.activeIconContainer : undefined}>
+              <TabIcon name={iconName} color={color} size={size} />
+            </View>
           );
         },
       })}
@@ -42,3 +48,24 @@ const BottomTabs = ({ openDrawer }: any) => {
 };
 
 export default BottomTabs;
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: '#121212', // premium dark
+    borderTopColor: '#1E1E1E',
+    borderTopWidth: 1,
+    height: 65,
+    paddingBottom: 8,
+  },
+
+  label: {
+    fontSize: 12,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+
+  activeIconContainer: {
+    padding: 6,
+    borderRadius: 12,
+  },
+});
