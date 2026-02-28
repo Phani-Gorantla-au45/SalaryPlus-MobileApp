@@ -9,14 +9,16 @@ import TabIcon from '../../../asserts/TabIcon';
 
 const RedeemOptions = ({ route, navigation }: any) => {
   const { metal } = route.params;
+  const isGold = metal === 'Gold';
+  const accentColor = isGold ? '#D4AF37' : '#BFC1C2';
 
   return (
     <View style={styles.container}>
-      
+
       {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <TabIcon name="arrow-back" size={26} color="#D4AF37" />
+          <TabIcon name="arrow-back" size={26} color={accentColor} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Redeem Options</Text>
       </View>
@@ -42,7 +44,7 @@ const RedeemOptions = ({ route, navigation }: any) => {
             Delivery Protection
           </Text>
         </View>
-        <Text style={styles.arrow}>›</Text>
+        <Text style={[styles.arrow, { color: accentColor }]}>›</Text>
       </TouchableOpacity>
 
       {/* Bank Transfer */}
